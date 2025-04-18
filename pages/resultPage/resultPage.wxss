@@ -75,3 +75,85 @@ page{
   margin: 20rpx;
   border-radius: 10%;
 }
+
+.container {
+  padding: 20rpx;
+  background-color: #f8f8f8;
+  min-height: 100vh;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20rpx 0;
+  padding: 20rpx;
+}
+
+.card-image {
+  width: 300rpx;
+  height: 520rpx;
+  border-radius: 15rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card-image.reversed {
+  transform: rotate(180deg);
+}
+
+.info-container {
+  background-color: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin: 20rpx;
+  box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10rpx;
+  color: #333;
+}
+
+.card-status {
+  font-size: 28rpx;
+  text-align: center;
+  color: #666;
+  margin-bottom: 30rpx;
+}
+
+.info-section {
+  margin-bottom: 20rpx;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.info-section:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #888;
+  margin-bottom: 8rpx;
+}
+
+.info-content {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+.meaning {
+  margin-top: 30rpx;
+}
+
+.meaning .info-content {
+  text-align: justify;
+  padding: 10rpx;
+  background-color: #f9f9f9;
+  border-radius: 10rpx;
+}

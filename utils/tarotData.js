@@ -1,60 +1,5 @@
-// pages/resultPage/resultPage.js
-const TarotData = require('../../utils/tarotData.js');
-
-Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    selectedCard: '',
-    cardNumber: '',
-    cardStatus: '',
-    cardName: '',
-    cardKeyword: '',
-    cardZodiac: '',
-    cardElement: '',
-    cardSymbol: '',
-    cardMeaning: ''
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    console.log('Received options:', options);
-    
-    // 确保接收到正确的参数
-    if (!options.cardNumber || !options.cardStatus) {
-      console.error('Missing required parameters:', options);
-      return;
-    }
-
-    const cardNumber = options.cardNumber;
-    const cardStatus = options.cardStatus;
-    
-    // 使用卡牌编号构建图片路径
-    const selectedCard = `/images/tarot/${cardNumber}.jpg`;
-    
-    // 使用 TarotData 获取卡牌信息
-    const cardInfo = TarotData.getCardInfo(cardNumber, cardStatus);
-    console.log('Card info from TarotData:', cardInfo);
-    
-    this.setData({
-      selectedCard: selectedCard,
-      cardNumber: cardNumber,
-      cardStatus: cardStatus,
-      cardName: cardInfo.name,
-      cardKeyword: cardInfo.keyword,
-      cardZodiac: cardInfo.zodiac,
-      cardElement: cardInfo.element,
-      cardSymbol: cardInfo.symbol,
-      cardMeaning: cardInfo.meaning
-    });
-    
-    console.log('Updated data:', this.data);
-  },
-
+// 塔罗牌数据管理类
+const TarotData = {
   // 获取卡牌名称
   getCardName: function(number) {
     const names = {
@@ -175,8 +120,8 @@ Page({
   getCardSymbol: function(number) {
     const symbols = {
       "1": "魔术师代表我们的智慧之光，拥有聪明的头脑，懂得善加发挥自己的能力，来掌握自己的命运，活出多采多姿的人生。",
-      "2": "女祭司代表我们深层潜意识的灵性直觉，她喜欢静静一个人体会内心的感受，不想受到别人的打扰。"
-      // 其他卡牌的象征可以继续添加
+      "2": "女祭司代表我们深层潜意识的灵性直觉，她喜欢静静一个人体会内心的感受，不想受到别人的打扰。",
+      // ... 其他卡牌的象征可以继续添加
     };
     return symbols[number] || '';
   },
@@ -192,57 +137,22 @@ Page({
         "正位": "基本含义——有良知的、文静的、知性的、具备敏锐的洞察力、理性的、富有研究精神、有正确的时机或人将出现的预感。",
         "逆位": "基本含义——缺乏理性思维能力、粗心大意、因精神压抑以致歇斯底里、易紧张、神经质、意气用事。"
       }
-      // 其他卡牌的含义可以继续添加
+      // ... 其他卡牌的含义可以继续添加
     };
     return meanings[number] ? meanings[number][status] || '' : '';
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  // 获取完整的卡牌信息
+  getCardInfo: function(number, status) {
+    return {
+      name: this.getCardName(number),
+      keyword: this.getCardKeyword(number),
+      zodiac: this.getCardZodiac(number),
+      element: this.getCardElement(number),
+      symbol: this.getCardSymbol(number),
+      meaning: this.getCardMeaning(number, status)
+    };
   }
-})
+};
+
+module.exports = TarotData; 

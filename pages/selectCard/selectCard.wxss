@@ -59,4 +59,165 @@ page{
 .titleTip .item:last-child{
   background-color: black;
   color: whitesmoke;
+}
+
+.wheel-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50rpx;
+}
+
+.wheel {
+  position: relative;
+  width: 900rpx;
+  height: 900rpx;
+  border-radius: 50%;
+  transition: transform 3s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+  background: rgba(84, 68, 102, 0.2);
+  box-shadow: 0 0 30rpx rgba(84, 68, 102, 0.5);
+}
+
+.card-slot {
+  position: absolute;
+  width: 150rpx;
+  height: 220rpx;
+  left: 50%;
+  top: 50%;
+  transform-origin: 0 0;
+  cursor: pointer;
+  transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.selected-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.5);
+  z-index: 1000;
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.selected-card .card-wrapper {
+  transform: rotate(0deg);
+}
+
+.selected-card .card, .selected-card .card.back {
+  box-shadow: 0 0 30rpx rgba(255, 255, 255, 0.5);
+  z-index: 1001;
+}
+
+.card-wrapper {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  transition: transform 0.3s ease;
+  position: relative;
+}
+
+.card, .card.back {
+  width: 100%;
+  height: 100%;
+  border-radius: 15rpx;
+  box-shadow: 0 0 15rpx rgba(255, 255, 255, 0.3);
+  transition: transform 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card.back {
+  background-color: #546;
+  border: 2rpx solid rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 50rpx;
+}
+
+.spin-btn {
+  background-color: #546;
+  color: white;
+  padding: 20rpx 40rpx;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  box-shadow: 0 0 20rpx rgba(84, 68, 102, 0.5);
+  transition: transform 0.2s ease;
+}
+
+.spin-btn:active {
+  transform: scale(0.95);
+}
+
+/* 洗牌动画相关样式 */
+.shuffling {
+  position: absolute;
+  width: 150rpx;
+  height: 220rpx;
+  transition: all 0.5s ease;
+  z-index: 3;
+}
+
+.shuffling .card, .shuffling .card.back {
+  animation: shuffle 0.5s ease-in-out;
+}
+
+@keyframes shuffle {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-50rpx) rotate(180deg); }
+  100% { transform: translateY(0) rotate(360deg); }
+}
+
+/* 轮盘展开动画 */
+@keyframes spreadToWheel {
+  0% { 
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% { 
+    transform: translateY(-300rpx) rotate(var(--target-rotation));
+    opacity: 1;
+  }
+}
+
+.spreading {
+  animation: spreadToWheel 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 选中牌的动画效果 */
+@keyframes selectedCardMove {
+  0% {
+    transform: translateY(-300rpx) rotate(var(--target-rotation));
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1.5);
+  }
+}
+
+/* 页面过渡动画 */
+.page-transition {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.page-transition.active {
+  opacity: 1;
+  pointer-events: auto;
 } 

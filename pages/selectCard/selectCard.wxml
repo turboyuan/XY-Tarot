@@ -4,15 +4,24 @@
 <text class="item">静下心来，心中默念你想要问的问题，然后选择一张塔罗牌</text>
 </view>
 
-<view>
-  <view class="board" >
-    <view class="rows" wx:for="{{cards}}" wx:for-index="idx" wx:for-item="row" wx:key="idx">
-        <view wx:for="{{row}}" class="cols"   wx:for-index="idy"  wx:for-item="card" wx:key="idy"> 
-            <view  class="" data-ix="{{idx}}"  data-iy="{{idy}}"  bindtap="onTap" >
-                <image class="card" style="display:{{card.state == 0 ? 'none' : 'block'}}" mode="scaleToFill" src= "{{card.src}}" data-card="{{card}}"></image>
-                <image class="card back" style="display:{{card.state != 0 ? 'none' : 'block'}}" mode="scaleToFill" src= "{{backImage}}" ></image>
-            </view>
-        </view>
+<view class="wheel-container" style="height: 885rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx">
+  <view class="wheel" style="transform: rotate({{wheelRotation}}deg); height: 743rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx; width: 716rpx">
+    <view class="card-slot {{item.selected ? 'selected-card' : ''}} {{item.shuffling ? 'shuffling' : ''}} {{item.spreading ? 'spreading' : ''}}" 
+          wx:for="{{cards}}" 
+          wx:key="index" 
+          style="--target-rotation: {{index * (360/cards.length)}}deg; transform: {{item.shuffling ? 'translateY(0) rotate(0deg)' : item.spreading ? 'translateY(-300rpx) rotate(' + (index * (360/cards.length)) + 'deg)' : item.selected ? 'translate(-50%, -50%) scale(1.5)' : 'translateY(-300rpx) rotate(' + (index * (360/cards.length)) + 'deg)'}}">
+      <view class="card-wrapper" data-index="{{index}}" bindtap="onTap" style="position: relative; left: -3rpx; top: 20rpx">
+        <image class="card" style="display:{{item.state == 0 ? 'none' : 'block'}}" 
+               mode="scaleToFill" src="{{item.src}}"></image>
+        <image class="card back" style="display: {{item.state != 0 ? 'none' : 'block'}}" 
+               mode="scaleToFill" src="{{backImage}}"></image>
+      </view>
     </view>
-    </view>
+  </view>
 </view>
+
+<view class="controls">
+  <button class="spin-btn" bindtap="shuffleCards">洗牌</button>
+</view>
+
+<view class="page-transition {{isTransitioning ? 'active' : ''}}"></view>
